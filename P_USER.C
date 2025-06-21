@@ -297,7 +297,11 @@ void P_MovePlayer (player_t* player)
 // Didn't you teacher say to pay attention in Geometry/Trigonometry class? ;)
 
 // Calculates player's speed based on distance-of-a-line formula
-	player->speed = (sqrt((abs(x1)*abs(x2)) + (abs(y1)*abs(y2)))); // Player's Speed Tails 08-22-2000
+
+
+// Reverted to the SRB2 Xmas 0.96 version of this line based on analysis of the Demo 4.1 EXE 
+// Save 21-05-2025
+	player->speed = (sqrt((abs(player->mo->momx/100000)*abs(player->mo->momx/100000)) + (abs(player->mo->momy/100000)*abs(player->mo->momy/100000))));
 
 // forward
 	if ((player->rmomx > 0 && player->rmomy > 0) && (player->mo->angle >= 0 && player->mo->angle < ANG90)) // Quadrant 1
