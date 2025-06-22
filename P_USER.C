@@ -219,6 +219,26 @@ extern int ticruned,ticmiss;
 extern consvar_t cv_homing; // Tails 07-02-2001
 extern consvar_t cv_nights; // Tails 07-02-2001
 extern consvar_t cv_numsnow; // Tails 12-25-2001
+
+
+fixed_t P_UnknownSpeedCalculation(fixed_t rmomx,fixed_t rmomy)
+{
+  fixed_t x;
+  fixed_t y;
+  fixed_t x2;
+  
+  x = (rmomx ^ rmomx >> 31) - (rmomx >> 31);
+  y = (rmomy ^ rmomy >> 31) - (rmomy >> 31);
+  
+  x2 = x;
+  
+  if (y <= x) {
+    x2 = y;
+  }
+  return (x - (x2 >> 1)) + y;
+}
+
+
 //
 // P_MovePlayer
 //
@@ -299,9 +319,9 @@ void P_MovePlayer (player_t* player)
 // Calculates player's speed based on distance-of-a-line formula
 
 
-// Reverted to the SRB2 Xmas 0.96 version of this line based on analysis of the Demo 4.1 EXE 
-// Save 21-05-2025
-	player->speed = (sqrt((abs(player->mo->momx/100000)*abs(player->mo->momx/100000)) + (abs(player->mo->momy/100000)*abs(player->mo->momy/100000))));
+// Not sure what this does, but this is the calculation it does in Demo 4.35 and it seems to work
+// Save 22-05-2025
+	player->speed = P_UnknownSpeedCalculation(player->rmomx, player->rmomy) >> 16;
 
 // forward
 	if ((player->rmomx > 0 && player->rmomy > 0) && (player->mo->angle >= 0 && player->mo->angle < ANG90)) // Quadrant 1
