@@ -770,6 +770,8 @@ if(tmthing->player) // Is the moving/interacting object the player?
 		{
 		if((tmthing->player->mfjumped == 1) || (tmthing->player->mfspinning == 1) || (tmthing->player->powers[pw_invulnerability]) || (tmthing->player->powers[pw_super])) // Do you possess the ability to subdue the object?
 		{
+			// Added enemies to fix their collision
+			// Save 21-05-2025
 			switch(thing->type)
 				{
 				case MT_MISC50: // Blue shield box
@@ -781,6 +783,12 @@ if(tmthing->player) // Is the moving/interacting object the player?
 				case MT_MISC10: // 10-Ring box
 				case MT_MISC11: // 25-Ring box
 				case MT_INV: // Invincibility box
+				case MT_BLUECRAWLA: 
+				case MT_REDCRAWLA:
+				case MT_GFZFISH:
+				case MT_SKIM:
+				case MT_JETTBOMBER:
+				case MT_JETTGUNNER:
 					if(((tmthing->player->mfjumped == 0) && (tmthing->player->mfspinning == 0)) && ((tmthing->player->powers[pw_super]) || (tmthing->player->powers[pw_invulnerability]))) // Don't bust boxes like Sonic Adventure Tails 11-02-2000
 						break;
 					else

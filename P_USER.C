@@ -219,6 +219,7 @@ extern int ticruned,ticmiss;
 extern consvar_t cv_homing; // Tails 07-02-2001
 extern consvar_t cv_nights; // Tails 07-02-2001
 extern consvar_t cv_numsnow; // Tails 12-25-2001
+
 //
 // P_MovePlayer
 //
@@ -297,7 +298,9 @@ void P_MovePlayer (player_t* player)
 // Didn't you teacher say to pay attention in Geometry/Trigonometry class? ;)
 
 // Calculates player's speed based on distance-of-a-line formula
-	player->speed = (sqrt((abs(x1)*abs(x2)) + (abs(y1)*abs(y2)))); // Player's Speed Tails 08-22-2000
+// Restored from the Demo 4.35 EXE
+// Save 16-07-2025
+	player->speed = P_AproxDistance(player->rmomx, player->rmomy) >> FRACBITS;
 
 // forward
 	if ((player->rmomx > 0 && player->rmomy > 0) && (player->mo->angle >= 0 && player->mo->angle < ANG90)) // Quadrant 1
